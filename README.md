@@ -1,2 +1,2 @@
-# Blings
+# Vix
 MERN Stack
