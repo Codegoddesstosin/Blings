@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 
 const items = require ('./routes/api/items');
 
@@ -24,6 +25,74 @@ mongoose
 
  //use routes
  app.use('/api/items', items);
+
+
+// Basic Authentication
+
+ app.post('/api/items', verifyToken, (req, res) => {
+ 	    jwt.verify(req.token, 'secretkey', (err, authData) => {
+ 	    	if(err){
+ 	    		res.sendStatus(401);
+ 	    	} else {
+ 	    		  res.json({
+	    	      message: 'Todo Item created',
+	    	      authData
+	            });
+ 	    	}
+ 	});
+	  
+});
+
+
+
+app.post('/api/login', (req, res) => {
+  const user = {
+  	id: 1,
+  	username: 'tosin',
+  	email: 'tosin@gmail.com'
+  }
+
+  jwt.sign({user}, 'secretkey', (err, token) => {
+  	 res.json ({
+  	 	token: token
+  });
+
+});
+
+});
+
+//Format Token
+//Authorization Token
+
+
+//verify Token
+function verifyToken( req, res, next)
+{
+	//Get Header
+	const bearerHeader = req.headers['authorization'];
+	//check if bearer is undefined
+	if(typeof bearerHeader !== 'undefined') {
+         //split at the space
+
+       const bearer = bearerHeader.split('');
+
+       //get token from array
+       const bearerToken = bearer[1];
+       //set token
+       req.token = bearerToken;
+
+
+       //next middleware
+       next();
+
+	}else {
+		//forbidden
+		res.sendStatus(403);
+	}
+
+}
+
+
 
  //serve static assets if in production
 

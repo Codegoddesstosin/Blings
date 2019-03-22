@@ -54,7 +54,7 @@ import React, { Component } from 'react';
                 onClick={this.toggle}
 
 
-             >Add Item </Button>
+             >Add Todo Item </Button>
               <Modal
                   isOpen={this.state.modal}
                   toggle={this.toggle}
@@ -65,7 +65,7 @@ import React, { Component } from 'react';
               <ModalBody>
                 <Form onSubmit={this.onSubmit}>
                   <FormGroup>
-                    <Label for="item">Item</Label>
+                    <Label for="item"> Todo Item</Label>
                     <Input
                       type="text"
                       name="name"

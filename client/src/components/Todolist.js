@@ -3,10 +3,10 @@ import { Container, ListGroup, ListGroupItem, Button } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 //import uuid from 'uuid';
 import { connect } from 'react-redux';
-import {getItems, deleteItem } from '../actions/itemactions';
+import {getItems, deleteItem, updateItem } from '../actions/itemactions';
 import PropTypes from 'prop-types';
 
-class Shoplist extends Component {
+class Todolist extends Component {
  
  componentDidMount () {
 
@@ -16,7 +16,7 @@ class Shoplist extends Component {
  onDeleteClick = id => {
        this.props.deleteItem(id);
  };
-
+  
     render () {
 
        const { items } = this.props.item;
@@ -33,8 +33,17 @@ class Shoplist extends Component {
                           size="sm"
                           onClick={this.onDeleteClick.bind(this, _id)}
                           >&times;</Button>
+                          
+                          <Button 
+                          
+                          color= "primary"
+                          size="sm"
+                          onClick={this.onDeleteClick.bind(this, _id)}
+                          >Update</Button>
                        {name}
                        </ListGroupItem>
+
+
                        </CSSTransition>
 
                      ))}
@@ -48,7 +57,7 @@ class Shoplist extends Component {
 
 }
 
-Shoplist.propTypes = {
+Todolist.propTypes = {
   getItems: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired
 }
@@ -58,4 +67,4 @@ const mapStateToProps = (state) => ({
     item: state.item
 });
 
-export default connect(mapStateToProps, {getItems, deleteItem })(Shoplist);
+export default connect(mapStateToProps, {getItems, deleteItem, updateItem })(Todolist);
