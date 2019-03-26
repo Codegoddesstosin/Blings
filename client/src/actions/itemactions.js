@@ -1,5 +1,8 @@
 import axios from 'axios';
 import { GET_ITEMS, ADD_ITEM, UPDATE_ITEM, DELETE_ITEM, ITEMS_LOADING } from './types';
+import { tokenConfig } from './authActions';
+import { returnErrors } from './errorAction';
+
 
 export const getItems = () => dispatch => {
 	dispatch(setItemsLoading());
@@ -10,29 +13,32 @@ export const getItems = () => dispatch => {
         	type: GET_ITEMS,
         	payload: res.data
         })
+      
 	);
 };
 
 
-export const deleteItem = id => dispatch => {
-	axios.delete(`/api/items/${id}`)
+export const deleteItem = id => (dispatch, getState) => {
+	axios.delete(`/api/items/${id}`, tokenConfig(getState))
 	.then(res => 
         dispatch({
         	type:DELETE_ITEM,
         	payload: id
         }))
+	     
+    
 };
 
-export const addItem = item => dispatch => {
-	axios.post('/api/items', item)
+export const addItem = item => (dispatch, getState) => {
+	axios.post('/api/items', item, tokenConfig(getState))
 	.then(res => dispatch ({
 		type: ADD_ITEM,
 		payload: res.data
 	}))
 };
 
-export const updateItem = item => dispatch => {
-	axios.put('/api/items', item)
+export const updateItem = item => (dispatch, getState) => {
+	axios.put('/api/items', item, tokenConfig(getState))
 	.then(res => dispatch ({
 		type: UPDATE_ITEM,
 		payload: res.data

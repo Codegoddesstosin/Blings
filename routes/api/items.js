@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const auth = require('../../middleware/auth');
 
 //item model
 const Item = require('../../models/Item');
@@ -17,7 +18,7 @@ router.get('/', (req, res) => {
 //@ route post api/items
 //@desc create todoitem
 //@access private
-router.post('/', (req, res) => {
+router.post('/', auth, (req, res) => {
 	const newItem = new Item ({
 		name: req.body.name 
 	});
@@ -28,7 +29,7 @@ router.post('/', (req, res) => {
 //@ route post api/items
 //@desc update todo item
 //@access private
-router.put('/:id', (req, res) => {
+router.put('/:id', auth, (req, res) => {
 	Item.findOneAndUpdate(req.params.id, {
         name: req.body.name
 
