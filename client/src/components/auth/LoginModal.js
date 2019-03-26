@@ -99,7 +99,7 @@ import React, { Component } from 'react';
 
 
               >
-              <ModalHeader toggle={this.toggle}>Register</ModalHeader>
+              <ModalHeader toggle={this.toggle}>Login</ModalHeader>
               <ModalBody>
                { this.state.msg ? ( <Alert color = "danger">{this.state.msg}</Alert> ) : null }
                 <Form onSubmit={this.onSubmit}>

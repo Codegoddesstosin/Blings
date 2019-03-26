@@ -1,7 +1,7 @@
 {
-  "name": "shoplist",
+  "name": "Todolist",
   "version": "1.0.0",
-  "description": "shopping list",
+  "description": "Todo list",
   "main": "server.js",
   "scripts": {
     "client-install": "npm install --prefix client",
